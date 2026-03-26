@@ -1,7 +1,14 @@
 #!/bin/bash
 
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+YELLOW=$'\033[1;33m'
+CYAN=$'\033[0;36m'
+NC=$'\033[0m' # No Color
+
 print_banner() {
-cat << "EOF"
+cat << EOF
+${CYAN}
                                                                                                                   
                                                                                                                   
 RRRRRRRRRRRRRRRRR                                                                                   888888888     
@@ -21,32 +28,54 @@ R::::::R     R:::::R e::::::::eeeeeeee   c:::::::::::::::::co:::::::::::::::o  n
 R::::::R     R:::::R  ee:::::::::::::e    cc:::::::::::::::c oo:::::::::::oo   n::::n    n::::n   88:::::::::88   
 RRRRRRRR     RRRRRRR    eeeeeeeeeeeeee      cccccccccccccccc   ooooooooooo     nnnnnn    nnnnnn     888888888     
 
+${NC}
+${YELLOW}
+                              [*] Author  : 8omp
+                              [*] Version : 1.0.0
+                              [*] Github  : https://github.com/8omp/recon8.git
+${NC}
 
-====================================================================================
-[*] Author: 8omp
-[*] Version : 1.0.0
-[*] Github  : https://github.com/8omp/
-[*] Description: A simple recon script for quick enumeration of a target IP address.
-[*] Usage: ./recon8.sh
-====================================================================================
 EOF
 }
 
 print_banner
 
-echo ""
 echo -n "[>] Enter the target IP address: "
 read TARGET_IP
 
 if [ -z "$TARGET_IP" ]; then
-    echo "[-] No IP address entered. Exiting."
+    echo -e "${RED}[-] No IP address entered. Exiting.${NC}"
     exit 1
 fi
 
+
+# nmap phase1: found open ports
 echo ""
-echo "[*] Starting recon on $TARGET_IP..."
-echo "===================================================================================="
+echo -e "${YELLOW}[*] Starting nmap on $TARGET_IP...${NC}"
 
-sudo nmap -sS -T4 -p- "$TARGET_IP"
+PHASE1_LOG_FILE="nmap-phase1_${TARGET_IP}.txt"
+echo "--------------------------------------------------------------------------------"
 
-echo "===================================================================================="
+sudo nmap -sS -T4 -p- "$TARGET_IP" -oN "$PHASE1_LOG_FILE"
+
+echo "--------------------------------------------------------------------------------"
+
+TARGET_PORTS=$(grep -E "^[0-9]+/tcp[[:space:]]+open" "$PHASE1_LOG_FILE" | cut -d '/' -f 1 | tr '\n' ',' | sed 's/,$//')
+
+echo ""
+if [ -z "$TARGET_PORTS" ]; then
+    echo -e "${RED}[-] No open ports found on $TARGET_IP.${NC}"
+    exit 1
+else
+    echo -e "${GREEN}[+] Open ports found: $TARGET_PORTS${NC}"
+fi
+
+# nmap phase2: 
+
+PHASE2_LOG_FILE="nmap-phase2_${TARGET_IP}.txt"
+echo ""
+echo "--------------------------------------------------------------------------------"
+
+sudo nmap -sC -sV -T4 -p "$TARGET_PORTS" "$TARGET_IP" -oN "$PHASE2_LOG_FILE"
+
+echo "--------------------------------------------------------------------------------"
