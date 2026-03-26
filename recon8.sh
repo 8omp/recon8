@@ -40,7 +40,7 @@ EOF
 
 print_banner
 
-echo -n "[>] Enter the target domain or IP address: "
+echo -n -e "${GREEN}[>] Enter the target domain or IP address: ${NC}"
 read TARGET_IP
 
 if [ -z "$TARGET_IP" ]; then
