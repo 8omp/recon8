@@ -34,6 +34,7 @@ EOF
 
 print_banner
 
+echo ""
 echo -n "[>] Enter the target IP address: "
 read TARGET_IP
 
