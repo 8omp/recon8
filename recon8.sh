@@ -40,11 +40,11 @@ EOF
 
 print_banner
 
-echo -n "[>] Enter the target IP address: "
+echo -n "[>] Enter the target domain or IP address: "
 read TARGET_IP
 
 if [ -z "$TARGET_IP" ]; then
-    echo -e "${RED}[-] No IP address entered. Exiting.${NC}"
+    echo -e "${RED}[-] No domain or IP address entered. Exiting.${NC}"
     exit 1
 fi
 
@@ -70,7 +70,7 @@ else
     echo -e "${GREEN}[+] Open ports found: $TARGET_PORTS${NC}"
 fi
 
-# nmap phase2: 
+# nmap phase2: service enumeration
 
 PHASE2_LOG_FILE="nmap-phase2_${TARGET_IP}.txt"
 echo ""
