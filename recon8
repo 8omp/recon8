@@ -28,12 +28,12 @@ R::::::R     R:::::R e::::::::eeeeeeee   c:::::::::::::::::co:::::::::::::::o  n
 R::::::R     R:::::R  ee:::::::::::::e    cc:::::::::::::::c oo:::::::::::oo   n::::n    n::::n   88:::::::::88   
 RRRRRRRR     RRRRRRR    eeeeeeeeeeeeee      cccccccccccccccc   ooooooooooo     nnnnnn    nnnnnn     888888888     
 
-${NC}
-${YELLOW}
-                              [*] Author  : 8omp
-                              [*] Version : 1.0.0
-                              [*] Github  : https://github.com/8omp/recon8.git
-${NC}
+${NC}${YELLOW}
+                                        [*] Author  : 8omp                                                                  
+                                        [*] Version : 1.0.1
+                                        [*] Github  : https://github.com/8omp/recon8.git ${NC}${RED}
+                                        [!] WARNING : Use ONLY on authorized targets. ${NC}
+
 
 EOF
 }
@@ -56,7 +56,7 @@ echo -e "${YELLOW}[*] Starting nmap on $TARGET_IP...${NC}"
 PHASE1_LOG_FILE="nmap-phase1_${TARGET_IP}.txt"
 echo "--------------------------------------------------------------------------------"
 
-sudo nmap -sS -T4 -p- "$TARGET_IP" -oN "$PHASE1_LOG_FILE"
+sudo nmap -Pn --min-rate 1000 --max-retries 1 -sS -T4 -p- "$TARGET_IP" -oN "$PHASE1_LOG_FILE"
 
 echo "--------------------------------------------------------------------------------"
 
@@ -76,6 +76,6 @@ PHASE2_LOG_FILE="nmap-phase2_${TARGET_IP}.txt"
 echo ""
 echo "--------------------------------------------------------------------------------"
 
-sudo nmap -sC -sV -T4 -p "$TARGET_PORTS" "$TARGET_IP" -oN "$PHASE2_LOG_FILE"
+sudo nmap -Pn -sC -sV -T4 -p "$TARGET_PORTS" "$TARGET_IP" -oN "$PHASE2_LOG_FILE"
 
 echo "--------------------------------------------------------------------------------"
