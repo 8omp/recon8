@@ -1,3 +1,8 @@
+#Recon8
+
+> A blazing-fast, automated reconnaissance script for CTFs and Penetration Testing.
+
+```text
 RRRRRRRRRRRRRRRRR                                                                                   888888888     
 R::::::::::::::::R                                                                                88:::::::::88   
 R::::::RRRRRR:::::R                                                                             88:::::::::::::88 
@@ -14,8 +19,8 @@ RR:::::R     R:::::Re::::::::e          c:::::::cccccc:::::co:::::ooooo:::::o  n
 R::::::R     R:::::R e::::::::eeeeeeee   c:::::::::::::::::co:::::::::::::::o  n::::n    n::::n 88:::::::::::::88 
 R::::::R     R:::::R  ee:::::::::::::e    cc:::::::::::::::c oo:::::::::::oo   n::::n    n::::n   88:::::::::88   
 RRRRRRRR     RRRRRRR    eeeeeeeeeeeeee      cccccccccccccccc   ooooooooooo     nnnnnn    nnnnnn     888888888 
+```
 
-> A blazing-fast, automated reconnaissance script for CTFs and Penetration Testing.
 
 ![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)
 ![Bash](https://img.shields.io/badge/language-Bash-green.svg)
