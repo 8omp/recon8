@@ -71,7 +71,6 @@ else
 fi
 
 # nmap phase2: service enumeration
-
 PHASE2_LOG_FILE="nmap-phase2_${TARGET_IP}.txt"
 echo ""
 echo "--------------------------------------------------------------------------------"
