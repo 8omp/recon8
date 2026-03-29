@@ -9,7 +9,7 @@ NC=$'\033[0m' # No Color
 SCAN_MODE="PENETRATION"
 NMAP_PHASE1_OPTS="-Pn -sS -T3 -p-"
 
-if[ "$1" == "--ctf"]; then
+if [ "$1" == "--ctf" ]; then
     SCAN_MODE="CTF"
     NMAP_PHASE1_OPTS="-Pn -sS -T4 -p- --min-rate 1000 --max-retries 1"
 fi
@@ -49,10 +49,11 @@ EOF
 print_banner
 
 echo -e "${YELLOW}[*] Scan mode: $SCAN_MODE${NC}"
-if [ "$SCAN_MODE" == "CTF"]; then
+if [ "$SCAN_MODE" == "CTF" ]; then
 echo -e "${RED}[!] Aggressive scanning enabled.${NC}"
 fi
 
+echo ""
 echo -n -e "${GREEN}[>] Enter the target domain or IP address: ${NC}"
 read TARGET_IP
 
