@@ -1,11 +1,13 @@
 #!/bin/bash
 
+# color codes
 RED=$'\033[0;31m'
 GREEN=$'\033[0;32m'
 YELLOW=$'\033[1;33m'
 CYAN=$'\033[0;36m'
 NC=$'\033[0m' # No Color
 
+# Change scan mode and nmap options based on user input
 SCAN_MODE="PENETRATION"
 NMAP_PHASE1_OPTS="-Pn -sS -T3 -p-"
 
@@ -38,13 +40,21 @@ RRRRRRRR     RRRRRRR    eeeeeeeeeeeeee      cccccccccccccccc   ooooooooooo     n
 
 ${NC}${YELLOW}
                                         [*] Author  : 8omp                                                                  
-                                        [*] Version : 1.0.2
+                                        [*] Version : 1.0.3
                                         [*] Github  : https://github.com/8omp/recon8.git ${NC}${RED}
                                         [!] WARNING : Use ONLY on authorized targets. ${NC}
 
 
 EOF
 }
+
+# auto-update
+SCRIPT_PATH=$(readlink -f "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+if [ -d "$SCRIPT_DIR/.git" ]; then
+    (cd "$SCRIPT_DIR" && git pull --quiet 2>/dev/null)
+fi
 
 print_banner
 
