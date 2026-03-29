@@ -6,6 +6,14 @@ YELLOW=$'\033[1;33m'
 CYAN=$'\033[0;36m'
 NC=$'\033[0m' # No Color
 
+SCAN_MODE="PENETRATION"
+NMAP_PHASE1_OPTS="-Pn -sS -T3 -p-"
+
+if[ "$1" == "--ctf"]; then
+    SCAN_MODE="CTF"
+    NMAP_PHASE1_OPTS="-Pn -sS -T4 -p- --min-rate 1000 --max-retries 1"
+fi
+
 print_banner() {
 cat << EOF
 ${CYAN}
@@ -30,7 +38,7 @@ RRRRRRRR     RRRRRRR    eeeeeeeeeeeeee      cccccccccccccccc   ooooooooooo     n
 
 ${NC}${YELLOW}
                                         [*] Author  : 8omp                                                                  
-                                        [*] Version : 1.0.1
+                                        [*] Version : 1.0.2
                                         [*] Github  : https://github.com/8omp/recon8.git ${NC}${RED}
                                         [!] WARNING : Use ONLY on authorized targets. ${NC}
 
@@ -39,6 +47,11 @@ EOF
 }
 
 print_banner
+
+echo -e "${YELLOW}[*] Scan mode: $SCAN_MODE${NC}"
+if [ "$SCAN_MODE" == "CTF"]; then
+echo -e "${RED}[!] Aggressive scanning enabled.${NC}"
+fi
 
 echo -n -e "${GREEN}[>] Enter the target domain or IP address: ${NC}"
 read TARGET_IP
@@ -56,7 +69,7 @@ echo -e "${YELLOW}[*] Starting nmap on $TARGET_IP...${NC}"
 PHASE1_LOG_FILE="nmap-phase1_${TARGET_IP}.txt"
 echo "--------------------------------------------------------------------------------"
 
-sudo nmap -Pn --min-rate 1000 --max-retries 1 -sS -T4 -p- "$TARGET_IP" -oN "$PHASE1_LOG_FILE"
+sudo nmap $NMAP_PHASE1_OPTS "$TARGET_IP" -oN "$PHASE1_LOG_FILE"
 
 echo "--------------------------------------------------------------------------------"
 
